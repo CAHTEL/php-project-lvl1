@@ -1,0 +1,26 @@
+name: lint
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Validate composer.json
+      run: make validate
+
+    - name: install packages
+      run: make install
+
+    - name: action
+      run: make lint
+
