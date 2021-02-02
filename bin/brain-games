@@ -1,8 +1,17 @@
 #!/usr/bin/env php
 <?php
 
-use function Brain\Games\Cli\sayHello;
+use function Brain\Engine\selectGame;
+use function Brain\Engine\isGamesNameCorrect;
+use function Brain\Engine\startGame;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-sayHello();
+$nameOfGame = selectGame();
+
+if (!isGamesNameCorrect($nameOfGame)) {
+    echo 'something wrong was happened!';
+    exit();
+}
+
+startGame($nameOfGame);
