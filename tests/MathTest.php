@@ -2,6 +2,7 @@
 use PHPUnit\Framework\TestCase;
 
 use function Brain\Math\calculate;
+use function Brain\Math\getGreatestCommonDivisor;
 use function Brain\Math\isEven;
 
 class MathTest extends TestCase
@@ -41,5 +42,17 @@ class MathTest extends TestCase
         $this->expectException(Exception::class);
         calculate(50, 1, 'not operation');
 
+    }
+
+    public function testGetGreatestCommonDivisor()
+    {
+        $this->assertEquals(1, getGreatestCommonDivisor(2, 3));
+        $this->assertEquals(3, getGreatestCommonDivisor(12, 351));
+        $this->assertEquals(1, getGreatestCommonDivisor(-5, 2));
+        $this->assertEquals(2, getGreatestCommonDivisor(-6, -4));
+        $this->assertEquals(2, getGreatestCommonDivisor(-8, -2));
+        $this->assertEquals(1, getGreatestCommonDivisor(-9, 4));
+        $this->assertEquals(2, getGreatestCommonDivisor(6, 4));
+        $this->assertEquals(60, getGreatestCommonDivisor(60, 0));
     }
 }
