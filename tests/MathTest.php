@@ -2,7 +2,9 @@
 use PHPUnit\Framework\TestCase;
 
 use function Brain\Math\calculate;
+use function Brain\Math\generateArithmeticProgression;
 use function Brain\Math\getGreatestCommonDivisor;
+use function Brain\Math\getPassElementFromProgression;
 use function Brain\Math\isEven;
 
 class MathTest extends TestCase
@@ -54,5 +56,21 @@ class MathTest extends TestCase
         $this->assertEquals(1, getGreatestCommonDivisor(-9, 4));
         $this->assertEquals(2, getGreatestCommonDivisor(6, 4));
         $this->assertEquals(60, getGreatestCommonDivisor(60, 0));
+    }
+
+    public function testGenerateArithmeticProgression()
+    {
+        $this->assertEquals([2, 5, 8, 11, 14, 17], generateArithmeticProgression(2, 3, 6));
+        $this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], generateArithmeticProgression(1, 1, 9));
+    }
+
+    public function testGetPassElementFromProgression()
+    {
+        $arr1 = [1, 2, 3, 4, 5, '..', 7, 8, 9];
+        $arr2 = ['..', 8, 14, 20, 26];
+        $arr3 = [2, 5, 8, 11, 14, '..'];
+        $this->assertEquals(6, getPassElementFromProgression($arr1));
+        $this->assertEquals(2, getPassElementFromProgression($arr2));
+        $this->assertEquals(17, getPassElementFromProgression($arr3));
     }
 }
