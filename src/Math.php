@@ -44,6 +44,41 @@ function getGreatestCommonDivisor(int $a, int $b): int
 }
 
 /**
+ * @param array $arr
+ * @return int
+ */
+function getPassElementFromProgression(array $arr): int
+{
+    $passI = array_search('..', $arr);
+
+    if ($passI == 0) {
+        return $arr[$passI + 1] - ($arr[$passI + 2] - $arr[$passI + 1]);
+    }
+
+    if ($passI > 0 && $passI + 1 < count($arr)) {
+        return ($arr[$passI - 1] + $arr[$passI + 1]) / 2;
+    }
+
+    return $arr[$passI - 1] + $arr[1] - $arr[0];
+}
+
+/**
+ * @param int $start
+ * @param int $step
+ * @param int $length
+ * @return array
+ */
+function generateArithmeticProgression(int $start, int $step, int $length): array
+{
+    $arr = [];
+
+    for ($i = 0; $i < $length; $i++) {
+        $arr[$i] = $start + ($i * $step);
+    }
+    return $arr;
+}
+
+/**
  * @return int
  */
 function generateRandN(): int

@@ -16,15 +16,8 @@ function startRound(string $name): array
 {
     $a = generateRandN();
     $b = generateRandN();
-
     ask($a, $b);
-
-    try {
-        $rightAnswer = getRightAnswer($a, $b);
-    } catch (\Exception $exception) {
-        line('something wrong was happened!');
-        exit();
-    }
+    $rightAnswer = getRightAnswer($a, $b);
 
     return getResult(getUserAnswer(), $rightAnswer, $name);
 }

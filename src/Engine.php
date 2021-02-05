@@ -10,6 +10,7 @@ const COUNT_ROUNDS = 3;
 const GAME_EVEN = 'BrainEven';
 const GAME_CALC = 'BrainCalc';
 const GAME_GCD = 'BrainGcd';
+const GAME_PROGRESSION = 'BrainProgression';
 
 const SUCCESS_RESULT_MESSAGE = "Correct!";
 const NOT_SUCCESS_RESULT_MESSAGE = "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!";
@@ -18,12 +19,14 @@ const GAME_LIST = [
     0 => GAME_EVEN,
     1 => GAME_CALC,
     2 => GAME_GCD,
+    3 => GAME_PROGRESSION,
 ];
 
 const GAME_DESCRIPTIONS = [
     GAME_EVEN => 'Answer "yes" if the number is even, otherwise answer "no".',
     GAME_CALC => 'What is the result of the expression?',
     GAME_GCD => 'Find the greatest common divisor of given numbers.',
+    GAME_PROGRESSION => 'What number is missing in the progression?',
 ];
 
 /**
