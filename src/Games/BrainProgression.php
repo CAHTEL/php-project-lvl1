@@ -17,7 +17,7 @@ function startRound(string $name): array
 {
     $progressionLen = rand(5, 10);
     $progression = generateArithmeticProgression(generateRandN(), generateRandN(), $progressionLen);
-    $progression[rand(5, $progressionLen)] = '..';
+    $progression[rand(0, $progressionLen - 1)] = '..';
     ask($progression);
     $rightAnswer = getRightAnswer($progression);
 
