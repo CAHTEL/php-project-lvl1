@@ -12,6 +12,25 @@ function isEven($n): bool
 }
 
 /**
+ * @param int $num
+ * @return bool
+ */
+function isPrime(int $num): bool
+{
+    if ($num < 2) {
+        return false;
+    }
+
+    for ($i = 2; $i <= $num / 2; $i++) {
+        if ($num % $i === 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
  * @param int $a
  * @param int $b
  * @param string $operation

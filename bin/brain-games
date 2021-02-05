@@ -2,16 +2,10 @@
 <?php
 
 use function Brain\Engine\selectGame;
-use function Brain\Engine\isGamesNameCorrect;
 use function Brain\Engine\startGame;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
 $nameOfGame = selectGame();
-
-if (!isGamesNameCorrect($nameOfGame)) {
-    echo 'something wrong was happened!';
-    exit();
-}
 
 startGame($nameOfGame);

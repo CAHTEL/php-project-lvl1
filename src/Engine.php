@@ -11,6 +11,7 @@ const GAME_EVEN = 'BrainEven';
 const GAME_CALC = 'BrainCalc';
 const GAME_GCD = 'BrainGcd';
 const GAME_PROGRESSION = 'BrainProgression';
+const GAME_PRIME = 'BrainPrime';
 
 const SUCCESS_RESULT_MESSAGE = "Correct!";
 const NOT_SUCCESS_RESULT_MESSAGE = "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!";
@@ -20,6 +21,7 @@ const GAME_LIST = [
     1 => GAME_CALC,
     2 => GAME_GCD,
     3 => GAME_PROGRESSION,
+    4 => GAME_PRIME,
 ];
 
 const GAME_DESCRIPTIONS = [
@@ -27,6 +29,7 @@ const GAME_DESCRIPTIONS = [
     GAME_CALC => 'What is the result of the expression?',
     GAME_GCD => 'Find the greatest common divisor of given numbers.',
     GAME_PROGRESSION => 'What number is missing in the progression?',
+    GAME_PRIME => 'Answer "yes" if given number is prime. Otherwise answer "no".',
 ];
 
 /**
@@ -35,15 +38,6 @@ const GAME_DESCRIPTIONS = [
 function selectGame(): string
 {
     return GAME_LIST[0];
-}
-
-/**
- * @param string $name
- * @return bool
- */
-function isGamesNameCorrect(string $name): bool
-{
-    return in_array($name, GAME_LIST);
 }
 
 /**
