@@ -6,6 +6,7 @@ use function Brain\Math\generateArithmeticProgression;
 use function Brain\Math\getGreatestCommonDivisor;
 use function Brain\Math\getPassElementFromProgression;
 use function Brain\Math\isEven;
+use function Brain\Math\isPrime;
 
 class MathTest extends TestCase
 {
@@ -72,5 +73,19 @@ class MathTest extends TestCase
         $this->assertEquals(6, getPassElementFromProgression($arr1));
         $this->assertEquals(2, getPassElementFromProgression($arr2));
         $this->assertEquals(17, getPassElementFromProgression($arr3));
+    }
+
+    public function testIsPrime()
+    {
+        $this->assertFalse(isPrime(1));
+        $this->assertFalse(isPrime(6));
+        $this->assertFalse(isPrime(8));
+        $this->assertFalse(isPrime(24));
+        $this->assertFalse(isPrime(76));
+        $this->assertTrue(isPrime(5));
+        $this->assertTrue(isPrime(7));
+        $this->assertTrue(isPrime(13));
+        $this->assertTrue(isPrime(101));
+        $this->assertTrue(isPrime(113));
     }
 }

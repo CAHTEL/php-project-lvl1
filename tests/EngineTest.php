@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 use function Brain\Engine\getDescriptionByName;
 use function Brain\Engine\getResult;
 use function Brain\Engine\selectGame;
-use function Brain\Engine\isGamesNameCorrect;
 
 use const Brain\Engine\GAME_EVEN;
 use const Brain\Engine\GAME_DESCRIPTIONS;
@@ -17,15 +16,6 @@ class EngineTest extends TestCase
     public function testSelectGame()
     {
         $this->assertEquals(GAME_EVEN, selectGame());
-    }
-
-    public function testIsGamesNameCorrect()
-    {
-        $wrongName = 'qwe';
-        $this->assertFalse(isGamesNameCorrect($wrongName));
-
-        $goodName = GAME_EVEN;
-        $this->assertTrue(isGamesNameCorrect($goodName));
     }
 
     public function testGetDescriptionByName()
