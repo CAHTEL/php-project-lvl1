@@ -4,15 +4,23 @@ namespace Brain\Engine;
 
 use function Brain\Cli\sayHello;
 use function cli\line;
+use function cli\prompt;
 
-const GAME_EVEN = 'brain-even';
+const COUNT_ROUNDS = 3;
+const GAME_EVEN = 'BrainEven';
+const GAME_CALC = 'BrainCalc';
+
+const SUCCESS_RESULT_MESSAGE = "Correct!";
+const NOT_SUCCESS_RESULT_MESSAGE = "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!";
 
 const GAME_LIST = [
     0 => GAME_EVEN,
+    1 => GAME_CALC,
 ];
 
 const GAME_DESCRIPTIONS = [
-    GAME_EVEN => 'Answer "yes" if the number is even, otherwise answer "no".'
+    GAME_EVEN => 'Answer "yes" if the number is even, otherwise answer "no".',
+    GAME_CALC => 'What is the result of the expression?',
 ];
 
 /**
@@ -42,11 +50,45 @@ function getDescriptionByName(string $name): string
 }
 
 /**
+ * @param string $userAnswer
+ * @param string $rightAnswer
+ * @param string $userName
+ * @return array
+ */
+function getResult(string $userAnswer, string $rightAnswer, string $userName): array
+{
+    if ($userAnswer !== $rightAnswer) {
+        return [
+            'success' => false,
+            'mes' => sprintf(NOT_SUCCESS_RESULT_MESSAGE, $userAnswer, $rightAnswer, $userName)
+        ];
+    }
+
+    return ['success' => true, 'mes' => SUCCESS_RESULT_MESSAGE];
+}
+
+/**
  * @param string $name
  */
 function showDescription(string $name): void
 {
     line(getDescriptionByName($name));
+}
+
+/**
+ * @param $result
+ */
+function showResult(string $result): void
+{
+    line($result);
+}
+
+/**
+ * @return string
+ */
+function getUserAnswer(): string
+{
+    return strtolower(prompt('Your answer'));
 }
 
 /**
@@ -57,9 +99,16 @@ function startGame(string $gameName): void
     $userName = sayHello();
     showDescription($gameName);
 
-    switch ($gameName) {
-        case GAME_EVEN:
-            \Brain\Games\BrainEven\start($userName);
-            break;
+    $funcStart = "\Brain\Games\\{$gameName}\startRound";
+
+    for ($i = 0; $i < COUNT_ROUNDS; $i++) {
+        $gameResult = $funcStart($userName);
+        showResult($gameResult['mes']);
+
+        if (!$gameResult['success']) {
+            exit();
+        }
     }
+
+    line("Congratulations, {$userName}!");
 }
