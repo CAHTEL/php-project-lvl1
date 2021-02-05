@@ -37,8 +37,9 @@ function calculate(int $a, int $b, string $operation): int
  */
 function getGreatestCommonDivisor(int $a, int $b): int
 {
-    if ($b == 0)
+    if ($b == 0) {
         return abs($a);
+    }
     return getGreatestCommonDivisor($b, $a % $b);
 }
 
