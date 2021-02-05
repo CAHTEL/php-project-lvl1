@@ -31,6 +31,19 @@ function calculate(int $a, int $b, string $operation): int
 }
 
 /**
+ * @param int $a
+ * @param int $b
+ * @return int
+ */
+function getGreatestCommonDivisor(int $a, int $b): int
+{
+    if ($b == 0) {
+        return abs($a);
+    }
+    return getGreatestCommonDivisor($b, $a % $b);
+}
+
+/**
  * @return int
  */
 function generateRandN(): int
