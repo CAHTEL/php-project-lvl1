@@ -36,5 +36,5 @@ function ask(int $n): void
  */
 function getRightAnswer(int $n): string
 {
-    return isEven($n) ? 'yes' : 'no';
+    return isEven((string) $n) ? 'yes' : 'no';
 }

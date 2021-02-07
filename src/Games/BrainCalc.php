@@ -24,7 +24,7 @@ function startRound(string $name): array
         exit();
     }
 
-    return getResult(getUserAnswer(), $rightAnswer, $name);
+    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
 }
 
 /**

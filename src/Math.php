@@ -3,12 +3,12 @@
 namespace Brain\Math;
 
 /**
- * @param $n
+ * @param string $n
  * @return bool
  */
-function isEven($n): bool
+function isEven(string $n): bool
 {
-    return is_numeric($n) && $n % 2 == 0;
+    return is_numeric($n) && (int) $n % 2 == 0;
 }
 
 /**
@@ -68,17 +68,18 @@ function getGreatestCommonDivisor(int $a, int $b): int
  */
 function getPassElementFromProgression(array $arr): int
 {
-    $passI = array_search('..', $arr);
+    $passI = array_search('..', $arr, true);
+    $passI = (int) $passI;
 
     if ($passI == 0) {
-        return $arr[$passI + 1] - ($arr[$passI + 2] - $arr[$passI + 1]);
+        return (int) ($arr[$passI + 1] - ($arr[$passI + 2] - $arr[$passI + 1]));
     }
 
     if ($passI > 0 && $passI + 1 < count($arr)) {
-        return ($arr[$passI - 1] + $arr[$passI + 1]) / 2;
+        return (int) (($arr[$passI - 1] + $arr[$passI + 1]) / 2);
     }
 
-    return $arr[$passI - 1] + $arr[1] - $arr[0];
+    return (int) ($arr[$passI - 1] + $arr[1] - $arr[0]);
 }
 
 /**

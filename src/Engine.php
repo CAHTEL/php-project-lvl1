@@ -76,7 +76,7 @@ function showDescription(string $name): void
 }
 
 /**
- * @param $result
+ * @param string $result
  */
 function showResult(string $result): void
 {
@@ -102,7 +102,7 @@ function startGame(string $gameName): void
     $funcStart = "\Brain\Games\\{$gameName}\startRound";
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
-        $gameResult = $funcStart($userName);
+        $gameResult = is_callable($funcStart) ? $funcStart($userName) : ['mes' => 'error', 'success' => false];
         showResult($gameResult['mes']);
 
         if (!$gameResult['success']) {

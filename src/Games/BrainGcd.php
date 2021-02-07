@@ -19,7 +19,7 @@ function startRound(string $name): array
     ask($a, $b);
     $rightAnswer = getRightAnswer($a, $b);
 
-    return getResult(getUserAnswer(), $rightAnswer, $name);
+    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
 }
 
 /**

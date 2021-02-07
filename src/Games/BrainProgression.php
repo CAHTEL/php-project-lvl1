@@ -21,7 +21,7 @@ function startRound(string $name): array
     ask($progression);
     $rightAnswer = getRightAnswer($progression);
 
-    return getResult(getUserAnswer(), $rightAnswer, $name);
+    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
 }
 
 /**
