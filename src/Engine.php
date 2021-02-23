@@ -46,9 +46,14 @@ function startGame(string $gameName): void
     $funcStart = "\Brain\Games\\{$gameName}\startRound";
     $funcGetDescription = "\Brain\Games\\{$gameName}\getDescription";
 
-    line($funcGetDescription());
+    if (is_callable($funcGetDescription)) {
+        line($funcGetDescription());
+    }
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
+        if (!is_callable($funcStart)) {
+            exit();
+        }
         $roundData = $funcStart();
         line($roundData['question']);
         $gameResult = getResult(getUserAnswer(), $roundData['answer'], $userName);
