@@ -7,47 +7,9 @@ use function cli\line;
 use function cli\prompt;
 
 const COUNT_ROUNDS = 3;
-const GAME_EVEN = 'BrainEven';
-const GAME_CALC = 'BrainCalc';
-const GAME_GCD = 'BrainGcd';
-const GAME_PROGRESSION = 'BrainProgression';
-const GAME_PRIME = 'BrainPrime';
 
 const SUCCESS_RESULT_MESSAGE = "Correct!";
 const NOT_SUCCESS_RESULT_MESSAGE = "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!";
-
-const GAME_LIST = [
-    0 => GAME_EVEN,
-    1 => GAME_CALC,
-    2 => GAME_GCD,
-    3 => GAME_PROGRESSION,
-    4 => GAME_PRIME,
-];
-
-const GAME_DESCRIPTIONS = [
-    GAME_EVEN => 'Answer "yes" if the number is even, otherwise answer "no".',
-    GAME_CALC => 'What is the result of the expression?',
-    GAME_GCD => 'Find the greatest common divisor of given numbers.',
-    GAME_PROGRESSION => 'What number is missing in the progression?',
-    GAME_PRIME => 'Answer "yes" if given number is prime. Otherwise answer "no".',
-];
-
-/**
- * @return string Name of Game
- */
-function selectGame(): string
-{
-    return GAME_LIST[0];
-}
-
-/**
- * @param string $name
- * @return string
- */
-function getDescriptionByName(string $name): string
-{
-    return GAME_DESCRIPTIONS[$name];
-}
 
 /**
  * @param string $userAnswer
@@ -68,22 +30,6 @@ function getResult(string $userAnswer, string $rightAnswer, string $userName): a
 }
 
 /**
- * @param string $name
- */
-function showDescription(string $name): void
-{
-    line(getDescriptionByName($name));
-}
-
-/**
- * @param string $result
- */
-function showResult(string $result): void
-{
-    line($result);
-}
-
-/**
  * @return string
  */
 function getUserAnswer(): string
@@ -97,13 +43,17 @@ function getUserAnswer(): string
 function startGame(string $gameName): void
 {
     $userName = sayHello();
-    showDescription($gameName);
+    $game = "Brain\Games\\{$gameName}";
+    $funcStart = "\\{$game}\startRound";
+    $description = get_defined_constants(true)['user']["{$game}\DESCRIPTION"];
 
-    $funcStart = "\Brain\Games\\{$gameName}\startRound";
+    line($description);
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
-        $gameResult = is_callable($funcStart) ? $funcStart($userName) : ['mes' => 'error', 'success' => false];
-        showResult($gameResult['mes']);
+        $roundData = $funcStart();
+        line($roundData['question']);
+        $gameResult = getResult(getUserAnswer(), $roundData['answer'], $userName);
+        line($gameResult['mes']);
 
         if (!$gameResult['success']) {
             exit();

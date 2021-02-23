@@ -2,32 +2,26 @@
 
 namespace Brain\Games\BrainEven;
 
-use function Brain\Engine\getResult;
-use function Brain\Engine\getUserAnswer;
-use function Brain\Math\generateRandN;
-use function Brain\Math\isEven;
-use function cli\line;
+const DESCRIPTION = 'Answer "yes" if the number is even, otherwise answer "no".';
+const TEMPLATE = 'Question: %d';
 
 /**
- * @param string $name
  * @return array
  */
-function startRound(string $name): array
+function startRound(): array
 {
-    $n = generateRandN();
-    ask($n);
-    $rightAnswer = getRightAnswer($n);
+    $n = rand(0, 100);
 
-    return getResult(getUserAnswer(), $rightAnswer, $name);
+    return ['question' => generateQuestion($n), 'answer' => (string) getRightAnswer($n)];
 }
 
 /**
  * @param int $n
- * @return void
+ * @return string
  */
-function ask(int $n): void
+function generateQuestion(int $n): string
 {
-    line("Question: {$n}");
+    return sprintf(TEMPLATE, $n);
 }
 
 /**
@@ -37,4 +31,13 @@ function ask(int $n): void
 function getRightAnswer(int $n): string
 {
     return isEven((string) $n) ? 'yes' : 'no';
+}
+
+/**
+ * @param string $n
+ * @return bool
+ */
+function isEven(string $n): bool
+{
+    return is_numeric($n) && (int) $n % 2 == 0;
 }

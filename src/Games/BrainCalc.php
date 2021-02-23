@@ -2,40 +2,33 @@
 
 namespace Brain\Games\BrainCalc;
 
-use function Brain\Engine\getResult;
-use function Brain\Engine\getUserAnswer;
-use function Brain\Math\calculate;
-use function Brain\Math\generateRandMathExpression;
-use function cli\line;
+const DESCRIPTION = 'What is the result of the expression?';
+const TEMPLATE = 'Question: %d %s %d';
 
 /**
- * @param string $name
  * @return array
  */
-function startRound(string $name): array
+function startRound(): array
 {
     $arr = generateRandMathExpression();
-    ask($arr['a'], $arr['b'], $arr['operation']);
-
     try {
         $rightAnswer = getRightAnswer($arr['a'], $arr['b'], $arr['operation']);
     } catch (\Exception $exception) {
-        line('something wrong was happened!');
         exit();
     }
 
-    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
+    return ['question'=> generateQuestion($arr['a'], $arr['b'], $arr['operation']), 'answer' => (string) $rightAnswer];
 }
 
 /**
  * @param int $a
  * @param int $b
  * @param string $operation
- * @return void
+ * @return string
  */
-function ask(int $a, int $b, string $operation): void
+function generateQuestion(int $a, int $b, string $operation): string
 {
-    line("Question: {$a} {$operation} {$b}");
+    return sprintf(TEMPLATE, $a, $b, $operation);
 }
 
 /**
@@ -48,4 +41,39 @@ function ask(int $a, int $b, string $operation): void
 function getRightAnswer(int $a, int $b, string $operation): int
 {
     return calculate($a, $b, $operation);
+}
+
+/**
+ * @param int $a
+ * @param int $b
+ * @param string $operation
+ * @return int
+ * @throws \Exception
+ */
+function calculate(int $a, int $b, string $operation): int
+{
+    switch ($operation) {
+        case '+':
+            return $a + $b;
+        case '-':
+            return $a - $b;
+        default:
+            throw new \Exception('unknown operation');
+    }
+}
+
+/**
+ * @return array
+ */
+function generateRandMathExpression(): array
+{
+    return ['a' => rand(0, 100), 'b' => rand(0, 100), 'operation' => generateRandOperation()];
+}
+
+/**
+ * @return string
+ */
+function generateRandOperation(): string
+{
+    return rand(0, 9) % 2 === 0 ? '+' : '-';
 }

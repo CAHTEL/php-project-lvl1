@@ -2,32 +2,25 @@
 
 namespace Brain\Games\BrainPrime;
 
-use function Brain\Engine\getResult;
-use function Brain\Engine\getUserAnswer;
-use function Brain\Math\generateRandN;
-use function Brain\Math\isPrime;
-use function cli\line;
+const DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const TEMPLATE = 'Question: %d';
 
 /**
- * @param string $name
  * @return array
  */
-function startRound(string $name): array
+function startRound(): array
 {
-    $n = generateRandN();
-    ask($n);
-    $rightAnswer = getRightAnswer($n);
-
-    return getResult(getUserAnswer(), $rightAnswer, $name);
+    $n = rand(0, 100);
+    return ['question' => generateQuestion($n), 'answer' => getRightAnswer($n)];
 }
 
 /**
  * @param int $n
- * @return void
+ * @return string
  */
-function ask(int $n): void
+function generateQuestion(int $n): string
 {
-    line("Question: {$n}");
+    return sprintf(TEMPLATE, $n);
 }
 
 /**
@@ -37,4 +30,23 @@ function ask(int $n): void
 function getRightAnswer(int $n): string
 {
     return isPrime($n) ? 'yes' : 'no';
+}
+
+/**
+ * @param int $num
+ * @return bool
+ */
+function isPrime(int $num): bool
+{
+    if ($num < 2) {
+        return false;
+    }
+
+    for ($i = 2; $i <= $num / 2; $i++) {
+        if ($num % $i === 0) {
+            return false;
+        }
+    }
+
+    return true;
 }

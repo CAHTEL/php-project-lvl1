@@ -2,35 +2,28 @@
 
 namespace Brain\Games\BrainProgression;
 
-use function Brain\Engine\getResult;
-use function Brain\Engine\getUserAnswer;
-use function Brain\Math\generateArithmeticProgression;
-use function Brain\Math\generateRandN;
-use function Brain\Math\getPassElementFromProgression;
-use function cli\line;
+const DESCRIPTION = 'What number is missing in the progression?';
+const TEMPLATE = 'Question: %s';
 
 /**
- * @param string $name
  * @return array
  */
-function startRound(string $name): array
+function startRound(): array
 {
     $progressionLen = rand(5, 10);
-    $progression = generateArithmeticProgression(generateRandN(), generateRandN(), $progressionLen);
+    $progression = generateArithmeticProgression(rand(0, 100), rand(0, 100), $progressionLen);
     $progression[rand(0, $progressionLen - 1)] = '..';
-    ask($progression);
-    $rightAnswer = getRightAnswer($progression);
 
-    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
+    return ['question' => generateQuestion($progression), 'answer' => (string) getRightAnswer($progression)];
 }
 
 /**
  * @param array $arr
- * @return void
+ * @return string
  */
-function ask(array $arr): void
+function generateQuestion(array $arr): string
 {
-    line('Question: ' . implode(' ', $arr));
+    return sprintf(TEMPLATE, implode(' ', $arr));
 }
 
 /**
@@ -40,4 +33,40 @@ function ask(array $arr): void
 function getRightAnswer(array $arr): int
 {
     return getPassElementFromProgression($arr);
+}
+
+/**
+ * @param array $arr
+ * @return int
+ */
+function getPassElementFromProgression(array $arr): int
+{
+    $passI = array_search('..', $arr, true);
+    $passI = (int) $passI;
+
+    if ($passI == 0) {
+        return (int) ($arr[$passI + 1] - ($arr[$passI + 2] - $arr[$passI + 1]));
+    }
+
+    if ($passI > 0 && $passI + 1 < count($arr)) {
+        return (int) (($arr[$passI - 1] + $arr[$passI + 1]) / 2);
+    }
+
+    return (int) ($arr[$passI - 1] + $arr[1] - $arr[0]);
+}
+
+/**
+ * @param int $start
+ * @param int $step
+ * @param int $length
+ * @return array
+ */
+function generateArithmeticProgression(int $start, int $step, int $length): array
+{
+    $arr = [];
+
+    for ($i = 0; $i < $length; $i++) {
+        $arr[$i] = $start + ($i * $step);
+    }
+    return $arr;
 }

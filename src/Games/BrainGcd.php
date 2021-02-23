@@ -2,34 +2,27 @@
 
 namespace Brain\Games\BrainGcd;
 
-use function Brain\Engine\getResult;
-use function Brain\Engine\getUserAnswer;
-use function Brain\Math\generateRandN;
-use function Brain\Math\getGreatestCommonDivisor;
-use function cli\line;
+const DESCRIPTION = 'Find the greatest common divisor of given numbers.';
+const TEMPLATE = 'Question: %d %d';
 
 /**
- * @param string $name
  * @return array
  */
-function startRound(string $name): array
+function startRound(): array
 {
-    $a = generateRandN();
-    $b = generateRandN();
-    ask($a, $b);
-    $rightAnswer = getRightAnswer($a, $b);
-
-    return getResult(getUserAnswer(), (string) $rightAnswer, $name);
+    $a = rand(0, 100);
+    $b = rand(0, 100);
+    return ['question' => generateQuestion($a, $b), 'answer' => (string) getRightAnswer($a, $b)];
 }
 
 /**
  * @param int $a
  * @param int $b
- * @return void
+ * @return string
  */
-function ask(int $a, int $b): void
+function generateQuestion(int $a, int $b): string
 {
-    line("Question: {$a} {$b}");
+    return sprintf(TEMPLATE, $a, $b);
 }
 
 /**
@@ -40,4 +33,17 @@ function ask(int $a, int $b): void
 function getRightAnswer(int $a, int $b): int
 {
     return getGreatestCommonDivisor($a, $b);
+}
+
+/**
+ * @param int $a
+ * @param int $b
+ * @return int
+ */
+function getGreatestCommonDivisor(int $a, int $b): int
+{
+    if ($b == 0) {
+        return abs($a);
+    }
+    return getGreatestCommonDivisor($b, $a % $b);
 }

@@ -10,16 +10,10 @@
         }
     ],
     "bin": [
-        "bin/brain-calc",
-        "bin/brain-games",
-        "bin/brain-even",
-        "bin/brain-gcd",
-        "bin/brain-progression",
-        "bin/brain-prime"
+        "bin/brain-games"
     ],
     "autoload": {
         "files": [
-            "src/Math.php",
             "src/Engine.php",
             "src/Games/BrainEven.php",
             "src/Games/BrainCalc.php",
