@@ -4,6 +4,7 @@ namespace Brain\Games\BrainPrime;
 
 const DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 const TEMPLATE = 'Question: %d';
+const GAME_NAME = 'BrainPrime';
 
 /**
  * @return array

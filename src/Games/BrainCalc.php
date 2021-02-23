@@ -2,6 +2,7 @@
 
 namespace Brain\Games\BrainCalc;
 
+const GAME_NAME = 'BrainCalc';
 const DESCRIPTION = 'What is the result of the expression?';
 const TEMPLATE = 'Question: %d %s %d';
 

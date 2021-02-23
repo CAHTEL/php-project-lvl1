@@ -2,6 +2,7 @@
 <?php
 
 use function Brain\Engine\startGame;
+use const Brain\Games\BrainPrime\GAME_NAME;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -12,6 +13,4 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-$gameName = substr($argv[0], strpos($argv[0], '/') + 1);
-$gameNameToCamelCase = str_replace('-', '', ucwords($gameName, '-'));
-startGame($gameNameToCamelCase);
+startGame(GAME_NAME);

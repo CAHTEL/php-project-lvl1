@@ -2,6 +2,7 @@
 
 namespace Brain\Games\BrainGcd;
 
+const GAME_NAME = 'BrainGcd';
 const DESCRIPTION = 'Find the greatest common divisor of given numbers.';
 const TEMPLATE = 'Question: %d %d';
 

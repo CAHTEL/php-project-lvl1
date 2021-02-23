@@ -4,6 +4,7 @@ namespace Brain\Games\BrainProgression;
 
 const DESCRIPTION = 'What number is missing in the progression?';
 const TEMPLATE = 'Question: %s';
+const GAME_NAME = 'BrainProgression';
 
 /**
  * @return array

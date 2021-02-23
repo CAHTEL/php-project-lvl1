@@ -2,6 +2,7 @@
 
 namespace Brain\Games\BrainEven;
 
+const GAME_NAME = 'BrainEven';
 const DESCRIPTION = 'Answer "yes" if the number is even, otherwise answer "no".';
 const TEMPLATE = 'Question: %d';
 
