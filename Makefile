@@ -3,15 +3,15 @@ install:
 brain-games:
 	php bin/brain-games
 brain-even:
-	php bin/brain-games BrainEven
+	php bin/brain-even
 brain-calc:
-	php bin/brain-games BrainCalc
+	php bin/brain-calc
 brain-gcd:
-	php bin/brain-games BrainGcd
+	php bin/brain-gcd
 brain-progression:
-	php bin/brain-games BrainProgression
+	php bin/brain-progression
 brain-prime:
-	php bin/brain-games BrainPrime
+	php bin/brain-prime
 validate:
 	composer validate
 lint:

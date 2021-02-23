@@ -2,7 +2,6 @@
 <?php
 
 use function Brain\Cli\sayHello;
-use function Brain\Engine\startGame;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -13,10 +12,5 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-if ($argc == 1) {
-    sayHello();
-    exit();
-}
-
-$gameName = $argv[1];
-startGame($gameName);
+sayHello();
+exit();

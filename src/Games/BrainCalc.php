@@ -17,7 +17,7 @@ function startRound(): array
         exit();
     }
 
-    return ['question'=> generateQuestion($arr['a'], $arr['b'], $arr['operation']), 'answer' => (string) $rightAnswer];
+    return ['question' => generateQuestion($arr['a'], $arr['b'], $arr['operation']), 'answer' => (string) $rightAnswer];
 }
 
 /**
