@@ -13,7 +13,7 @@ function startRound(): array
 {
     $n = rand(0, 100);
 
-    return ['question' => generateQuestion($n), 'answer' => (string) getRightAnswer($n)];
+    return ['question' => generateQuestion($n), 'answer' => getRightAnswer($n)];
 }
 
 /**
