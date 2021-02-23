@@ -43,9 +43,9 @@ function getUserAnswer(): string
 function startGame(string $gameName): void
 {
     $userName = sayHello();
-    $game = "Brain\Games\\{$gameName}";
-    $funcStart = "\\{$game}\startRound";
-    $funcGetDescription = "\\{$game}\getDescription";
+    $game = "\Brain\Games\{$gameName}";
+    $funcStart = "{$game}\startRound";
+    $funcGetDescription = "{$game}\getDescription";
 
     line($funcGetDescription());
 
