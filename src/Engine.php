@@ -45,9 +45,9 @@ function startGame(string $gameName): void
     $userName = sayHello();
     $game = "Brain\Games\\{$gameName}";
     $funcStart = "\\{$game}\startRound";
-    $description = get_defined_constants(true)['user']["{$game}\DESCRIPTION"];
+    $funcGetDescription = "\\{$game}\getDescription";
 
-    line($description);
+    line($funcGetDescription());
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
         $roundData = $funcStart();

@@ -18,6 +18,14 @@ function startRound(): array
 }
 
 /**
+ * @return string
+ */
+function getDescription(): string
+{
+    return DESCRIPTION;
+}
+
+/**
  * @param array $arr
  * @return string
  */

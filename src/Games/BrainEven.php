@@ -16,6 +16,14 @@ function startRound(): array
 }
 
 /**
+ * @return string
+ */
+function getDescription(): string
+{
+    return DESCRIPTION;
+}
+
+/**
  * @param int $n
  * @return string
  */
