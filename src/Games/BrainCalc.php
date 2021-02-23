@@ -37,7 +37,7 @@ function getDescription(): string
  */
 function generateQuestion(int $a, int $b, string $operation): string
 {
-    return sprintf(TEMPLATE, $a, $b, $operation);
+    return sprintf(TEMPLATE, $a, $operation, $b);
 }
 
 /**
