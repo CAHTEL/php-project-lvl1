@@ -20,6 +20,11 @@ function startGame(string $description, callable $funcMakeRoundData): void
     line('Welcome to the Brain Game!');
     $userName = prompt('May I have your name?');
     line("Hello, %s!", $userName);
+
+    if ($description === '') {
+        exit;
+    }
+
     line($description);
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
