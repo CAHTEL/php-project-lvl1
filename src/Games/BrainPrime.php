@@ -3,24 +3,15 @@
 namespace Brain\Games\BrainPrime;
 
 const DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
-const TEMPLATE = 'Question: %d';
-const GAME_NAME = 'BrainPrime';
+const QUESTION_GAME_TEMPLATE = '%d';
 
 /**
  * @return array
  */
-function startRound(): array
+function makeRoundData(): array
 {
     $n = rand(0, 100);
     return ['question' => generateQuestion($n), 'answer' => getRightAnswer($n)];
-}
-
-/**
- * @return string
- */
-function getDescription(): string
-{
-    return DESCRIPTION;
 }
 
 /**
@@ -29,7 +20,7 @@ function getDescription(): string
  */
 function generateQuestion(int $n): string
 {
-    return sprintf(TEMPLATE, $n);
+    return sprintf(QUESTION_GAME_TEMPLATE, $n);
 }
 
 /**

@@ -2,26 +2,17 @@
 
 namespace Brain\Games\BrainEven;
 
-const GAME_NAME = 'BrainEven';
 const DESCRIPTION = 'Answer "yes" if the number is even, otherwise answer "no".';
-const TEMPLATE = 'Question: %d';
+const QUESTION_GAME_TEMPLATE = '%d';
 
 /**
  * @return array
  */
-function startRound(): array
+function makeRoundData(): array
 {
     $n = rand(0, 100);
 
     return ['question' => generateQuestion($n), 'answer' => getRightAnswer($n)];
-}
-
-/**
- * @return string
- */
-function getDescription(): string
-{
-    return DESCRIPTION;
 }
 
 /**
@@ -30,7 +21,7 @@ function getDescription(): string
  */
 function generateQuestion(int $n): string
 {
-    return sprintf(TEMPLATE, $n);
+    return sprintf(QUESTION_GAME_TEMPLATE, $n);
 }
 
 /**

@@ -2,14 +2,13 @@
 
 namespace Brain\Games\BrainCalc;
 
-const GAME_NAME = 'BrainCalc';
 const DESCRIPTION = 'What is the result of the expression?';
-const TEMPLATE = 'Question: %d %s %d';
+const QUESTION_GAME_TEMPLATE = '%d %s %d';
 
 /**
  * @return array
  */
-function startRound(): array
+function makeRoundData(): array
 {
     $arr = generateRandMathExpression();
     try {
@@ -22,14 +21,6 @@ function startRound(): array
 }
 
 /**
- * @return string
- */
-function getDescription(): string
-{
-    return DESCRIPTION;
-}
-
-/**
  * @param int $a
  * @param int $b
  * @param string $operation
@@ -37,7 +28,7 @@ function getDescription(): string
  */
 function generateQuestion(int $a, int $b, string $operation): string
 {
-    return sprintf(TEMPLATE, $a, $operation, $b);
+    return sprintf(QUESTION_GAME_TEMPLATE, $a, $operation, $b);
 }
 
 /**

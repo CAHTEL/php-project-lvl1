@@ -3,27 +3,20 @@
 namespace Brain\Games\BrainProgression;
 
 const DESCRIPTION = 'What number is missing in the progression?';
-const TEMPLATE = 'Question: %s';
-const GAME_NAME = 'BrainProgression';
+const QUESTION_GAME_TEMPLATE = '%s';
 
 /**
  * @return array
  */
-function startRound(): array
+function makeRoundData(): array
 {
     $progressionLen = rand(5, 10);
     $progression = generateArithmeticProgression(rand(0, 100), rand(0, 100), $progressionLen);
-    $progression[rand(0, $progressionLen - 1)] = '..';
+    $hiddenElementIndex = rand(0, $progressionLen - 1);
+    $hiddenElementVal = $progression[$hiddenElementIndex];
+    $progression[$hiddenElementIndex] = '..';
 
-    return ['question' => generateQuestion($progression), 'answer' => (string) getRightAnswer($progression)];
-}
-
-/**
- * @return string
- */
-function getDescription(): string
-{
-    return DESCRIPTION;
+    return ['question' => generateQuestion($progression), 'answer' => (string) $hiddenElementVal];
 }
 
 /**
@@ -32,36 +25,7 @@ function getDescription(): string
  */
 function generateQuestion(array $arr): string
 {
-    return sprintf(TEMPLATE, implode(' ', $arr));
-}
-
-/**
- * @param array $arr
- * @return int
- */
-function getRightAnswer(array $arr): int
-{
-    return getPassElementFromProgression($arr);
-}
-
-/**
- * @param array $arr
- * @return int
- */
-function getPassElementFromProgression(array $arr): int
-{
-    $passI = array_search('..', $arr, true);
-    $passI = (int) $passI;
-
-    if ($passI == 0) {
-        return (int) ($arr[$passI + 1] - ($arr[$passI + 2] - $arr[$passI + 1]));
-    }
-
-    if ($passI > 0 && $passI + 1 < count($arr)) {
-        return (int) (($arr[$passI - 1] + $arr[$passI + 1]) / 2);
-    }
-
-    return (int) ($arr[$passI - 1] + $arr[1] - $arr[0]);
+    return sprintf(QUESTION_GAME_TEMPLATE, implode(' ', $arr));
 }
 
 /**

@@ -2,66 +2,37 @@
 
 namespace Brain\Engine;
 
-use function Brain\Cli\sayHello;
 use function cli\line;
 use function cli\prompt;
 
 const COUNT_ROUNDS = 3;
 
-const SUCCESS_RESULT_MESSAGE = "Correct!";
+const SUCCESS_RESULT_MESSAGE = 'Correct!';
 const NOT_SUCCESS_RESULT_MESSAGE = "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!";
+const MAIN_QUESTION_TEMPLATE = 'Question: %s';
 
 /**
- * @param string $userAnswer
- * @param string $rightAnswer
- * @param string $userName
- * @return array
+ * @param string $description
+ * @param callable $funcMakeRoundData
  */
-function getResult(string $userAnswer, string $rightAnswer, string $userName): array
+function startGame(string $description, callable $funcMakeRoundData): void
 {
-    if ($userAnswer !== $rightAnswer) {
-        return [
-            'success' => false,
-            'mes' => sprintf(NOT_SUCCESS_RESULT_MESSAGE, $userAnswer, $rightAnswer, $userName)
-        ];
-    }
-
-    return ['success' => true, 'mes' => SUCCESS_RESULT_MESSAGE];
-}
-
-/**
- * @return string
- */
-function getUserAnswer(): string
-{
-    return strtolower(prompt('Your answer'));
-}
-
-/**
- * @param string $gameName
- */
-function startGame(string $gameName): void
-{
-    $userName = sayHello();
-    $funcStart = "\Brain\Games\\{$gameName}\startRound";
-    $funcGetDescription = "\Brain\Games\\{$gameName}\getDescription";
-
-    if (is_callable($funcGetDescription)) {
-        line($funcGetDescription());
-    }
+    line('Welcome to the Brain Game!');
+    $userName = prompt('May I have your name?');
+    line("Hello, %s!", $userName);
+    line($description);
 
     for ($i = 0; $i < COUNT_ROUNDS; $i++) {
-        if (!is_callable($funcStart)) {
-            exit();
-        }
-        $roundData = $funcStart();
-        line($roundData['question']);
-        $gameResult = getResult(getUserAnswer(), $roundData['answer'], $userName);
-        line($gameResult['mes']);
+        $roundData = $funcMakeRoundData();
+        line(MAIN_QUESTION_TEMPLATE, $roundData['question']);
+        $userAnswer = strtolower(prompt('Your answer'));
 
-        if (!$gameResult['success']) {
+        if ($userAnswer !== $roundData['answer']) {
+            line(NOT_SUCCESS_RESULT_MESSAGE, $userAnswer, $roundData['answer'], $userName);
             exit();
         }
+
+        line(SUCCESS_RESULT_MESSAGE);
     }
 
     line("Congratulations, {$userName}!");

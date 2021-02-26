@@ -2,26 +2,17 @@
 
 namespace Brain\Games\BrainGcd;
 
-const GAME_NAME = 'BrainGcd';
 const DESCRIPTION = 'Find the greatest common divisor of given numbers.';
-const TEMPLATE = 'Question: %d %d';
+const QUESTION_GAME_TEMPLATE = '%d %d';
 
 /**
  * @return array
  */
-function startRound(): array
+function makeRoundData(): array
 {
     $a = rand(0, 100);
     $b = rand(0, 100);
     return ['question' => generateQuestion($a, $b), 'answer' => (string) getRightAnswer($a, $b)];
-}
-
-/**
- * @return string
- */
-function getDescription(): string
-{
-    return DESCRIPTION;
 }
 
 /**
@@ -31,7 +22,7 @@ function getDescription(): string
  */
 function generateQuestion(int $a, int $b): string
 {
-    return sprintf(TEMPLATE, $a, $b);
+    return sprintf(QUESTION_GAME_TEMPLATE, $a, $b);
 }
 
 /**
