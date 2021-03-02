@@ -15,10 +15,10 @@ function startEvenGame(): void
 }
 
 /**
- * @param string $n
+ * @param int $n
  * @return bool
  */
-function isEven(string $n): bool
+function isEven(int $n): bool
 {
     return is_numeric($n) && (int) $n % 2 == 0;
 }
