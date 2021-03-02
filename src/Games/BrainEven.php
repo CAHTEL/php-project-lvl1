@@ -20,5 +20,5 @@ function startEvenGame(): void
  */
 function isEven(int $n): bool
 {
-    return is_numeric($n) && (int) $n % 2 == 0;
+    return $n % 2 == 0;
 }
