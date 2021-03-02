@@ -2,78 +2,49 @@
 
 namespace Brain\Games\BrainCalc;
 
+use function Brain\Engine\startGame;
+
 const DESCRIPTION = 'What is the result of the expression?';
 const QUESTION_GAME_TEMPLATE = '%d %s %d';
+const AVAILABLE_OPERATORS = ['+', '-', '*'];
 
-/**
- * @return array
- */
-function makeRoundData(): array
+function startCalcGame(): void
 {
-    $arr = generateRandMathExpression();
-    try {
-        $rightAnswer = getRightAnswer($arr['a'], $arr['b'], $arr['operation']);
-    } catch (\Exception $exception) {
-        exit();
-    }
+    startGame(DESCRIPTION, function (): array {
+        $firstNumber = rand(0, 100);
+        $secondNumber = rand(0, 100);
+        $operation = AVAILABLE_OPERATORS[array_rand(AVAILABLE_OPERATORS, 1)];
 
-    return ['question' => generateQuestion($arr['a'], $arr['b'], $arr['operation']), 'answer' => (string) $rightAnswer];
+        try {
+            $rightAnswer = calculate($firstNumber, $secondNumber, $operation);
+        } catch (\Exception $exception) {
+            exit();
+        }
+
+        return [
+            'question' => sprintf(QUESTION_GAME_TEMPLATE, $firstNumber, $operation, $secondNumber),
+            'answer' => (string) $rightAnswer,
+        ];
+    });
 }
 
 /**
- * @param int $a
- * @param int $b
- * @param string $operation
- * @return string
- */
-function generateQuestion(int $a, int $b, string $operation): string
-{
-    return sprintf(QUESTION_GAME_TEMPLATE, $a, $operation, $b);
-}
-
-/**
- * @param int $a
- * @param int $b
+ * @param int $firstNumber
+ * @param int $secondNumber
  * @param string $operation
  * @return int
  * @throws \Exception
  */
-function getRightAnswer(int $a, int $b, string $operation): int
-{
-    return calculate($a, $b, $operation);
-}
-
-/**
- * @param int $a
- * @param int $b
- * @param string $operation
- * @return int
- * @throws \Exception
- */
-function calculate(int $a, int $b, string $operation): int
+function calculate(int $firstNumber, int $secondNumber, string $operation): int
 {
     switch ($operation) {
         case '+':
-            return $a + $b;
+            return $firstNumber + $secondNumber;
         case '-':
-            return $a - $b;
+            return $firstNumber - $secondNumber;
+        case '*':
+            return $firstNumber * $secondNumber;
         default:
             throw new \Exception('unknown operation');
     }
-}
-
-/**
- * @return array
- */
-function generateRandMathExpression(): array
-{
-    return ['a' => rand(0, 100), 'b' => rand(0, 100), 'operation' => generateRandOperation()];
-}
-
-/**
- * @return string
- */
-function generateRandOperation(): string
-{
-    return rand(0, 9) % 2 === 0 ? '+' : '-';
 }

@@ -2,34 +2,20 @@
 
 namespace Brain\Games\BrainPrime;
 
+use function Brain\Engine\startGame;
+
 const DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 const QUESTION_GAME_TEMPLATE = '%d';
 
-/**
- * @return array
- */
-function makeRoundData(): array
+function startPrimeGame(): void
 {
-    $n = rand(0, 100);
-    return ['question' => generateQuestion($n), 'answer' => getRightAnswer($n)];
-}
-
-/**
- * @param int $n
- * @return string
- */
-function generateQuestion(int $n): string
-{
-    return sprintf(QUESTION_GAME_TEMPLATE, $n);
-}
-
-/**
- * @param int $n
- * @return string
- */
-function getRightAnswer(int $n): string
-{
-    return isPrime($n) ? 'yes' : 'no';
+    startGame(DESCRIPTION, function (): array {
+        $number = rand(0, 99);
+        return [
+            'question' => sprintf(QUESTION_GAME_TEMPLATE, $number),
+            'answer' => (string) isPrime($number),
+        ];
+    });
 }
 
 /**
