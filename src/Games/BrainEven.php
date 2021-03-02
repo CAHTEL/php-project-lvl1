@@ -10,7 +10,7 @@ function startEvenGame(): void
 {
     startGame(DESCRIPTION, function (): array {
         $numberForCheck = rand(0, 100);
-        return ['question' => $numberForCheck, 'answer' => isEven($numberForCheck) ? 'yes' : 'no'];
+        return ['question' => (string) $numberForCheck, 'answer' => isEven($numberForCheck) ? 'yes' : 'no'];
     });
 }
 

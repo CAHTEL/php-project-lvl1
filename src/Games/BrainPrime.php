@@ -13,7 +13,7 @@ function startPrimeGame(): void
         $number = rand(0, 99);
         return [
             'question' => sprintf(QUESTION_GAME_TEMPLATE, $number),
-            'answer' => (string) isPrime($number) ? 'yes' : 'no',
+            'answer' => isPrime($number) ? 'yes' : 'no',
         ];
     });
 }
