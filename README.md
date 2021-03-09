@@ -1,4 +1,4 @@
-# brain-games
+# Brain Games
 
 This project came about as a result of taking a <a href="https://ru.hexlet.io/"> Hexlet </a> course.
 
