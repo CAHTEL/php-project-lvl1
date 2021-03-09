@@ -27,10 +27,9 @@ function playGame(string $description, callable $makeRoundData): void
             line(
                 "'%s' is wrong answer ;(. Correct answer was '%s'",
                 $userAnswer,
-                $rightAnswer,
-                $userName
+                $rightAnswer
             );
-            line("Let's try again, %s!");
+            line("Let's try again, %s!", $userName);
             exit();
         }
 
