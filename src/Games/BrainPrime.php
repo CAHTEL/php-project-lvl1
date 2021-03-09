@@ -2,14 +2,14 @@
 
 namespace Brain\Games\BrainPrime;
 
-use function Brain\Engine\startGame;
+use function Brain\Engine\playGame;
 
 const DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 const QUESTION_GAME_TEMPLATE = '%d';
 
 function startPrimeGame(): void
 {
-    startGame(DESCRIPTION, function (): array {
+    playGame(DESCRIPTION, function (): array {
         $number = rand(0, 99);
         return [
             'question' => sprintf(QUESTION_GAME_TEMPLATE, $number),

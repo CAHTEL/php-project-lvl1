@@ -2,14 +2,14 @@
 
 namespace Brain\Games\BrainProgression;
 
-use function Brain\Engine\startGame;
+use function Brain\Engine\playGame;
 
 const DESCRIPTION = 'What number is missing in the progression?';
 const QUESTION_GAME_TEMPLATE = '%s';
 
 function startProgressionGame(): void
 {
-    startGame(DESCRIPTION, function (): array {
+    playGame(DESCRIPTION, function (): array {
         $progressionLength = rand(5, 10);
         $progression = generateArithmeticProgression(rand(0, 100), rand(0, 100), $progressionLength);
         $hiddenElementIndex = rand(0, $progressionLength - 1);

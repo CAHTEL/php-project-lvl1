@@ -2,7 +2,7 @@
 
 namespace Brain\Games\BrainCalc;
 
-use function Brain\Engine\startGame;
+use function Brain\Engine\playGame;
 
 const DESCRIPTION = 'What is the result of the expression?';
 const QUESTION_GAME_TEMPLATE = '%d %s %d';
@@ -10,7 +10,7 @@ const AVAILABLE_OPERATORS = ['+', '-', '*'];
 
 function startCalcGame(): void
 {
-    startGame(DESCRIPTION, function (): array {
+    playGame(DESCRIPTION, function (): array {
         $firstNumber = rand(0, 100);
         $secondNumber = rand(0, 100);
         $operation = AVAILABLE_OPERATORS[array_rand(AVAILABLE_OPERATORS, 1)];

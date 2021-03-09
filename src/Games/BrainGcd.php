@@ -2,14 +2,14 @@
 
 namespace Brain\Games\BrainGcd;
 
-use function Brain\Engine\startGame;
+use function Brain\Engine\playGame;
 
 const DESCRIPTION = 'Find the greatest common divisor of given numbers.';
 const QUESTION_GAME_TEMPLATE = '%d %d';
 
 function startGcdGame(): void
 {
-    startGame(DESCRIPTION, function (): array {
+    playGame(DESCRIPTION, function (): array {
         $firstNumber = rand(0, 99);
         $secondNumber = rand(0, 99);
         return [

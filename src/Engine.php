@@ -9,9 +9,9 @@ const ROUNDS_COUNT = 3;
 
 /**
  * @param string $description
- * @param callable $funcMakeRoundData
+ * @param callable $makeRoundData
  */
-function startGame(string $description, callable $funcMakeRoundData): void
+function playGame(string $description, callable $makeRoundData): void
 {
     line('Welcome to the Brain Game!');
     $userName = prompt('May I have your name?');
@@ -19,17 +19,18 @@ function startGame(string $description, callable $funcMakeRoundData): void
     line($description);
 
     for ($i = 0; $i < ROUNDS_COUNT; $i++) {
-        $roundData = $funcMakeRoundData();
-        line('Question: %s', $roundData['question']);
+        ['question' => $roundQuestion, 'answer' => $rightAnswer] = $makeRoundData();
+        line('Question: %s', $roundQuestion);
         $userAnswer = strtolower(prompt('Your answer'));
 
-        if ($userAnswer !== $roundData['answer']) {
+        if ($userAnswer !== $rightAnswer) {
             line(
-                "'%s' is wrong answer ;(. Correct answer was '%s'\n Let's try again, %s!",
+                "'%s' is wrong answer ;(. Correct answer was '%s'",
                 $userAnswer,
-                $roundData['answer'],
+                $rightAnswer,
                 $userName
             );
+            line("Let's try again, %s!");
             exit();
         }
 
